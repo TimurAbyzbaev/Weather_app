@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import ru.abyzbaev.weather_app.databinding.ActivityMainBinding
+import ru.abyzbaev.weather_app.view.weatherList.WeatherListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +15,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.myRoot)
-        binding.tv.setText("Hello THERE")
 
+
+        if(savedInstanceState == null){
+            supportFragmentManager.beginTransaction().replace(R.id.container, WeatherListFragment.newInstance()).commit()
+        }
     }
 }

@@ -15,7 +15,7 @@ class WeatherListViewModel(val liveData: MutableLiveData<AppState> = MutableLive
             //запрос репозиторий
             liveData.postValue(AppState.Success(Any())) //пришел ответ
         }.start()
-
+        ///PostValue может залагать если 3 сразу использовать. Что то точно не отобразится.
 
     }
 }

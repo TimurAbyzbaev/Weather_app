@@ -1,17 +1,14 @@
 package ru.abyzbaev.weather_app.view.weatherList
 
 import android.os.Bundle
-import android.os.SystemClock.sleep
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import ru.abyzbaev.weather_app.R
 import ru.abyzbaev.weather_app.databinding.FragmentWeatherListBinding
 import ru.abyzbaev.weather_app.viewmodel.AppState
 
@@ -20,7 +17,7 @@ class WeatherListFragment : Fragment() {
         fun newInstance() = WeatherListFragment()
     }
 
-    var _binding: FragmentWeatherListBinding? = null
+    private var _binding: FragmentWeatherListBinding? = null
     private val binding: FragmentWeatherListBinding
     get(){
         return _binding!!
@@ -46,10 +43,19 @@ class WeatherListFragment : Fragment() {
         viewModel.getLiveData().observe(viewLifecycleOwner, object : Observer<AppState>{
             override fun onChanged(t: AppState) {
                 renderData(t)
-
             }
         })
         viewModel.sentRequest()
+
+        /*val mutableList = mutableListOf<String>()
+        //list = list.toMutableList()
+        mutableList.add("sdfjklvn")
+        mutableList.add("Hi")
+        mutableList.removeAt(1)
+        val list = listOf(mutableList)
+
+        val newFilteredList = mutableList.filter { it.length > 3 }
+        val newSortedList = mutableList.sorted()*/
     }
 
     private fun renderData(appState: AppState){

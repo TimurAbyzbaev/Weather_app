@@ -56,13 +56,18 @@ class WeatherListFragment : Fragment() {
         when (appState){
             is AppState.Error -> {
                 binding.loadingLayout.visibility = GONE
-                binding.cityName.text = R.string.load_error.toString()
-                binding.temperatureValue.text = R.string.load_error.toString()
+                binding.cityName.text = "Ошибка"
+                binding.temperatureValue.text = "Ошибка"
                 binding.feelsLikeValue.text = ""
                 binding.cityCoordinates.text = ""
             }
             AppState.Loading -> {
                 binding.loadingLayout.visibility = VISIBLE
+
+                binding.cityName.text = "-"
+                binding.temperatureValue.text = "-"
+                binding.feelsLikeValue.text = "-"
+                binding.cityCoordinates.text = "-"
             }
             is AppState.Success -> {
                 val result = appState.weatherData

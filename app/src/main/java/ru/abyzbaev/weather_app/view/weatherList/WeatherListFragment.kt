@@ -17,6 +17,8 @@ class WeatherListFragment : Fragment() {
         fun newInstance() = WeatherListFragment()
     }
 
+    var isRussian = true
+
     private var _binding: FragmentWeatherListBinding? = null
     private val binding: FragmentWeatherListBinding
     get(){
@@ -45,43 +47,40 @@ class WeatherListFragment : Fragment() {
                 renderData(t)
             }
         })
-        viewModel.sentRequest()
+        //viewModel.sentRequest()
 
-        /*val mutableList = mutableListOf<String>()
-        //list = list.toMutableList()
-        mutableList.add("sdfjklvn")
-        mutableList.add("Hi")
-        mutableList.removeAt(1)
-        val list = listOf(mutableList)
-
-        val newFilteredList = mutableList.filter { it.length > 3 }
-        val newSortedList = mutableList.sorted()*/
+        binding.weatherListFragmentFab.setOnClickListener{
+            isRussian = !isRussian
+            if (isRussian){
+                viewModel.getWeatherListForRussia()
+            }else{
+                viewModel.getWeatherListForWorld()
+            }
+        }
     }
 
     private fun renderData(appState: AppState){
         when (appState){
             is AppState.Error -> {
-                binding.loadingLayout.visibility = GONE
+                /*binding.loadingLayout.visibility = GONE
                 binding.cityName.text = "Ошибка"
                 binding.temperatureValue.text = "Ошибка"
                 binding.feelsLikeValue.text = ""
-                binding.cityCoordinates.text = ""
+                binding.cityCoordinates.text = ""*/
             }
             AppState.Loading -> {
-                binding.loadingLayout.visibility = VISIBLE
+                /*binding.loadingLayout.visibility = VISIBLE
 
                 binding.cityName.text = "-"
                 binding.temperatureValue.text = "-"
                 binding.feelsLikeValue.text = "-"
-                binding.cityCoordinates.text = "-"
+                binding.cityCoordinates.text = "-"*/
             }
-            is AppState.Success -> {
-                val result = appState.weatherData
-                binding.cityName.text = result.city.name
-                binding.temperatureValue.text = result.temperature.toString()
-                binding.feelsLikeValue.text = result.feelsLike.toString()
-                binding.cityCoordinates.text = "${result.city.lat} / ${result.city.lon}"
-                binding.loadingLayout.visibility = GONE
+            is AppState.SuccessMulti -> {
+                binding.weatherListRecycleView.adapter = WeatherListAdapter(appState.weatherList)
+            }
+            is AppState.SuccessOne -> {
+
             }
         }
     }

@@ -1,16 +1,21 @@
 package ru.abyzbaev.weather_app.domain
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Weather (
     val city:City = getDefaultCity(),
     val temperature: Int = 15,
     val feelsLike: Int = 13
-)
+):Parcelable
 
+@Parcelize
 data class City(
     val name: String,
     val lat: Double,
     val lon: Double
-)
+):Parcelable
 
 fun getDefaultCity() = City("Москва", 27.3243523, 47.823434)
 

@@ -19,10 +19,10 @@ import ru.abyzbaev.weather_app.viewmodel.AppState
 class DetailsFragment: Fragment() {
     companion object {
         const val BUNDLE_WEATHER_EXTRA = "BUNDLE_WEATHER_EXTRA"
-        fun newInstance(weather: Weather): WeatherListFragment{
+        fun newInstance(weather: Weather): DetailsFragment{
             val bundle = Bundle()
             bundle.putParcelable("BUNDLE_WEATHER_EXTRA", weather)
-            val fragment = WeatherListFragment()
+            val fragment = DetailsFragment()
             fragment.arguments = bundle
             return fragment
         }

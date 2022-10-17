@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import ru.abyzbaev.weather_app.R
 import ru.abyzbaev.weather_app.databinding.FragmentWeatherListBinding
 import ru.abyzbaev.weather_app.viewmodel.AppState
 
@@ -53,10 +54,13 @@ class WeatherListFragment : Fragment() {
             isRussian = !isRussian
             if (isRussian){
                 viewModel.getWeatherListForRussia()
+                binding.weatherListFragmentFab.setImageResource(R.drawable.rus_icon)
             }else{
                 viewModel.getWeatherListForWorld()
+                binding.weatherListFragmentFab.setImageResource(R.drawable.world_icon)
             }
         }
+        viewModel.getWeatherListForRussia()
     }
 
     private fun renderData(appState: AppState){

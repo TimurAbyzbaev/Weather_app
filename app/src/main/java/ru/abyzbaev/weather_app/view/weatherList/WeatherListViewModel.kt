@@ -39,7 +39,7 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
         /**
          * Якобы никогда не будет 1 при рандоме, но вроде как попадает туда иногда
          */
-        if (rnd == 1) {
+        if (false) {
             liveData.postValue(AppState.Error(throw IllegalStateException("Что то пошло не так...")))
         }
         else{

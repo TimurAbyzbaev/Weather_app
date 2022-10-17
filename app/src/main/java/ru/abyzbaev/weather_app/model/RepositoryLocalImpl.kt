@@ -1,11 +1,10 @@
 package ru.abyzbaev.weather_app.model
 
-import android.os.SystemClock
 import ru.abyzbaev.weather_app.domain.Weather
 import ru.abyzbaev.weather_app.domain.getRussianCities
 import ru.abyzbaev.weather_app.domain.getWorldCities
 
-class RepositoryLocalImpl:RepositoryOne, RepositoryMany {
+class RepositoryLocalImpl:RepositorySingleWeather, RepositoryListWeather {
     override fun getListWeather(location: Location): List<Weather> {
         return when(location){
             Location.Russian -> { getRussianCities() }

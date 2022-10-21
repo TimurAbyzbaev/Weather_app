@@ -32,12 +32,16 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
 
     private fun sentRequest(location: Location){
         liveData.value = AppState.Loading// пошла загрузка
-        if (false) {
+        Thread{
+            Thread.sleep(3000L)
+            liveData.postValue(AppState.SuccessMulti(repositoryListWeather.getListWeather(location)))
+        }.start()
+        /*if (false) {
             liveData.postValue(AppState.Error(throw IllegalStateException("Что то пошло не так...")))
         }
         else{
             liveData.postValue(AppState.SuccessMulti(repositoryListWeather.getListWeather(location)))
-        }
+        }*/
 
     }
 

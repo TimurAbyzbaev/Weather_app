@@ -26,9 +26,9 @@ class WeatherListFragment : Fragment(), OnItemClick {
 
     private var _binding: FragmentWeatherListBinding? = null
     private val binding: FragmentWeatherListBinding
-    get(){
-        return _binding!!
-    }
+        get() {
+            return _binding!!
+        }
     lateinit var viewModel: WeatherListViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,19 +47,19 @@ class WeatherListFragment : Fragment(), OnItemClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(WeatherListViewModel::class.java)
-        viewModel.getLiveData().observe(viewLifecycleOwner, object : Observer<AppState>{
+        viewModel.getLiveData().observe(viewLifecycleOwner, object : Observer<AppState> {
             override fun onChanged(t: AppState) {
                 renderData(t)
             }
         })
         //viewModel.sentRequest()
 
-        binding.weatherListFragmentFab.setOnClickListener{
+        binding.weatherListFragmentFab.setOnClickListener {
             isRussian = !isRussian
-            if (isRussian){
+            if (isRussian) {
                 viewModel.getWeatherListForRussia()
                 binding.weatherListFragmentFab.setImageResource(R.drawable.rus_icon)
-            }else{
+            } else {
                 viewModel.getWeatherListForWorld()
                 binding.weatherListFragmentFab.setImageResource(R.drawable.world_icon)
             }
@@ -67,22 +67,34 @@ class WeatherListFragment : Fragment(), OnItemClick {
         viewModel.getWeatherListForRussia()
     }
 
-    private fun renderData(appState: AppState){
-        when (appState){
+    private fun renderData(appState: AppState) {
+        when (appState) {
             is AppState.Error -> {
-
+                binding.showResult()
             }
             AppState.Loading -> {
-
+                binding.loading()
             }
             is AppState.SuccessMulti -> {
-                binding.weatherListRecycleView.adapter = WeatherListAdapter(appState.weatherList, this)
+                binding.showResult()
+                binding.weatherListRecycleView.adapter =
+                    WeatherListAdapter(appState.weatherList, this)
             }
             is AppState.SuccessOne -> {
+                binding.showResult()
 
             }
         }
     }
+
+    fun FragmentWeatherListBinding.loading() {
+        this.loadingLayout.visibility = VISIBLE
+    }
+
+    fun FragmentWeatherListBinding.showResult() {
+        this.loadingLayout.visibility = GONE
+    }
+
 
     override fun onItemClick(weather: Weather) {
         (binding.root.context as MainActivity)

@@ -8,7 +8,7 @@ import ru.abyzbaev.weather_app.view.weatherList.WeatherListFragment
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding:ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,11 +17,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.myRoot)
 
 
-        if(savedInstanceState == null){
-            supportFragmentManager.beginTransaction().replace(R.id.container, WeatherListFragment.newInstance()).commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, WeatherListFragment.newInstance()).commit()
         }
-
-
-
     }
 }

@@ -8,7 +8,8 @@ import java.lang.Math.random
 import kotlin.random.Random
 
 
-class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()): ViewModel() {
+class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()) :
+    ViewModel() {
     private lateinit var repositoryListWeather: RepositoryListWeather
     private lateinit var repositorySingleWeather: RepositorySingleWeather
     fun getLiveData(): MutableLiveData<AppState> {
@@ -16,36 +17,40 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
         return liveData
     }
 
-    private fun choiceRepository(){
-        repositorySingleWeather = if(isConnection()){
+    private fun choiceRepository() {
+        repositorySingleWeather = if (isConnection()) {
             RepositoryRemoteImpl()
-        } else{
+        } else {
             RepositoryLocalImpl()
         }
         repositoryListWeather = RepositoryLocalImpl()
     }
 
-    fun getWeatherListForRussia(){
+    fun getWeatherListForRussia() {
         sentRequest(Location.Russian)
     }
-    fun getWeatherListForWorld(){
+
+    fun getWeatherListForWorld() {
         sentRequest(Location.World)
     }
 
-    private fun sentRequest(location: Location){
+    private fun sentRequest(location: Location) {
         liveData.value = AppState.Loading// пошла загрузка
-        Thread{
+        Thread {
             Thread.sleep(3000L)
             //liveData.postValue(AppState.SuccessMulti(repositoryListWeather.getListWeather(location)))
             if ((0..3).random() == 2) {
                 liveData.postValue(AppState.Error(IllegalStateException("Что то пошло не так...")))
-            }
-            else{
-                liveData.postValue(AppState.SuccessMulti(repositoryListWeather.getListWeather(location)))
+            } else {
+                liveData.postValue(
+                    AppState.SuccessMulti(
+                        repositoryListWeather.getListWeather(
+                            location
+                        )
+                    )
+                )
             }
         }.start()
-
-
     }
 
     private fun isConnection(): Boolean {

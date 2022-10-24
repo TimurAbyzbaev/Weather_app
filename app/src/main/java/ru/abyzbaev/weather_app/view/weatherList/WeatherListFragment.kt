@@ -73,7 +73,11 @@ class WeatherListFragment : Fragment(), OnItemClick {
         when (appState) {
             is AppState.Error -> {
                 binding.showResult()
-                binding.root.showSnackbar("Ошибка", Snackbar.LENGTH_INDEFINITE, "Попробовать снова") {
+                binding.root.showSnackbar(
+                    "Ошибка",
+                    Snackbar.LENGTH_INDEFINITE,
+                    "Попробовать снова"
+                ) {
                     if (isRussian) {
                         viewModel.getWeatherListForRussia()
                         binding.weatherListFragmentFab.setImageResource(R.drawable.rus_icon)
@@ -98,7 +102,12 @@ class WeatherListFragment : Fragment(), OnItemClick {
         }
     }
 
-    private fun View.showSnackbar(string: String, duration: Int, actionString: String, block: (v:View)->Unit){
+    private fun View.showSnackbar(
+        string: String,
+        duration: Int,
+        actionString: String,
+        block: (v: View) -> Unit
+    ) {
         Snackbar.make(this, string, duration).setAction(actionString, block).show()
     }
 

@@ -16,24 +16,23 @@ import ru.abyzbaev.weather_app.view.weatherList.WeatherListFragment
 import ru.abyzbaev.weather_app.view.weatherList.WeatherListViewModel
 import ru.abyzbaev.weather_app.viewmodel.AppState
 
-class DetailsFragment: Fragment() {
+class DetailsFragment : Fragment() {
     companion object {
         const val BUNDLE_WEATHER_EXTRA = "BUNDLE_WEATHER_EXTRA"
-        fun newInstance(weather: Weather): DetailsFragment{
-            val bundle = Bundle()
-            bundle.putParcelable("BUNDLE_WEATHER_EXTRA", weather)
-            val fragment = DetailsFragment()
-            fragment.arguments = bundle
-            return fragment
+        fun newInstance(weather: Weather) = DetailsFragment().apply {
+            arguments = Bundle().also {
+                it.putParcelable("BUNDLE_WEATHER_EXTRA", weather)
+            }
         }
     }
 
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding: FragmentDetailsBinding
-        get(){
+        get() {
             return _binding!!
         }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,17 +49,19 @@ class DetailsFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //val weather = arguments?.get(BUNDLE_WEATHER_EXTRA)
-        val weather = (arguments?.getParcelable<Weather>(BUNDLE_WEATHER_EXTRA))
-        if(weather != null)
-            renderData(weather)
-
+        arguments?.let { arg ->
+            arg.getParcelable<Weather>(BUNDLE_WEATHER_EXTRA)?.let { weather ->
+                renderData(weather)
+            }
+        }
     }
 
-    private fun renderData(weather: Weather){
-        binding.cityName.text = weather.city.name
-        binding.temperatureValue.text = weather.temperature.toString()
-        binding.feelsLikeValue.text = weather.feelsLike.toString()
-        binding.cityCoordinates.text = "${weather.city.lat} / ${weather.city.lon}"
+    private fun renderData(weather: Weather) {
+        binding.apply {
+            cityName.text = weather.city.name
+            temperatureValue.text = weather.temperature.toString()
+            feelsLikeValue.text = weather.feelsLike.toString()
+            cityCoordinates.text = "${weather.city.lat} / ${weather.city.lon}"
+        }
     }
 }

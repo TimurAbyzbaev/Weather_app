@@ -24,12 +24,11 @@ class WeatherListAdapter(private val dataList: List<Weather>, private val callba
     }
 
     inner class WeatherViewHolder(view: View):RecyclerView.ViewHolder(view){
-        fun  bind(weather: Weather){
-            val binding = FragmentWeatherListRecycleItemBinding.bind(itemView)
-            binding.cityName.text = weather.city.name
-            binding.root.setOnClickListener {
-                callback.onItemClick(weather)
-            }
+        fun  bind(weather: Weather) = FragmentWeatherListRecycleItemBinding.bind(itemView).apply {
+                cityName.text = weather.city.name
+                root.setOnClickListener {
+                    callback.onItemClick(weather)
+                }
         }
     }
 }

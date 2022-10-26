@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import ru.abyzbaev.weather_app.BuildConfig
 import ru.abyzbaev.weather_app.R
 import ru.abyzbaev.weather_app.databinding.FragmentDetailsBinding
 import ru.abyzbaev.weather_app.databinding.FragmentWeatherListBinding
@@ -22,6 +23,7 @@ class DetailsFragment : Fragment() {
         fun newInstance(weather: Weather) = DetailsFragment().apply {
             arguments = Bundle().also {
                 it.putParcelable("BUNDLE_WEATHER_EXTRA", weather)
+
             }
         }
     }

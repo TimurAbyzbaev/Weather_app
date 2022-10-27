@@ -26,7 +26,7 @@
         app:maxImageSize="130dp"
         app:tint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <FrameLayout
         android:id="@+id/loadingLayout"
@@ -43,7 +43,6 @@
             android:layout_gravity="center" />
 
     </FrameLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

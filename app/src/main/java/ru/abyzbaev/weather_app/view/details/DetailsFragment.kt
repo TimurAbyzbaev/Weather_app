@@ -55,16 +55,11 @@ class DetailsFragment : Fragment() {
                         weatherDTO -> bindWeatherLocalWithDTO(weatherLocal, weatherDTO)
                 }*/
 
-                WeatherLoader.requestV2(
-                    weatherLocal.city.lat,
-                    weatherLocal.city.lon
-                ) { weatherDTO ->
+                WeatherLoader.requestV2(weatherLocal.city.lat, weatherLocal.city.lon) { weatherDTO ->
                     bindWeatherLocalWithDTO(weatherLocal, weatherDTO)
                 }
             }
         }
-
-
     }
 
 
@@ -78,7 +73,6 @@ class DetailsFragment : Fragment() {
                 weatherLocal.feelsLike = weatherDTO.fact.feelsLike
             })
         }
-
     }
 
     private fun renderData(weather: Weather) {

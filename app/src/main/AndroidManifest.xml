@@ -4,6 +4,8 @@
     package="ru.abyzbaev.weather_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -25,6 +27,16 @@
             </intent-filter>
         </activity>
         <service android:name=".service.DetailsService"/>
+
+        <receiver android:name=".MainBroadcastReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"
+                    tools:ignore="BatteryLife" />
+                <action android:name="android.net.wifi.STATE_CHANGE"/>
+                <action android:name="android.intent.action.AIRPLANE_MODE"/>
+
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

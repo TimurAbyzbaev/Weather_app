@@ -2,16 +2,13 @@ package ru.abyzbaev.weather_app.model.dto
 
 
 import com.google.gson.annotations.SerializedName
+import ru.abyzbaev.weather_app.domain.City
+import ru.abyzbaev.weather_app.domain.Weather
 
 data class WeatherDTO(
-    @SerializedName("fact")
-    val fact: Fact,
-    @SerializedName("forecast")
-    val forecast: Forecast,
-    @SerializedName("info")
-    val info: Info,
-    @SerializedName("now")
-    val now: Int,
-    @SerializedName("now_dt")
-    val nowDt: String
+    val fact: Fact?
 )
+
+fun WeatherDTO.mapTo(city: City):Weather{
+    return Weather(city, this.fact?.temp?:0, this.fact?.feelsLike?:0)
+}

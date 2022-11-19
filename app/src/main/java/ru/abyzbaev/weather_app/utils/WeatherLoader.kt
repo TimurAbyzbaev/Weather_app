@@ -20,9 +20,7 @@ object WeatherLoader {
         myConnection = uri.openConnection() as HttpURLConnection
         myConnection.addRequestProperty("X-Yandex-API-Key", BuildConfig.WEATHER_API_KEY)
 
-        try {
 
-        }
 
         myConnection.readTimeout = 5000
         Thread {

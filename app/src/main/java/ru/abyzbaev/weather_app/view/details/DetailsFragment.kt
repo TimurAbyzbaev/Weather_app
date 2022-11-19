@@ -51,9 +51,7 @@ class DetailsFragment : Fragment() {
         weather?.let { weather ->
             weather.let { weatherLocal ->
 
-                /*WeatherLoader.requestV1(weatherLocal.city.lat,weatherLocal.city.lon) {
-                        weatherDTO -> bindWeatherLocalWithDTO(weatherLocal, weatherDTO)
-                }*/
+
 
                 WeatherLoader.requestV2(weatherLocal.city.lat, weatherLocal.city.lon) { weatherDTO ->
                     bindWeatherLocalWithDTO(weatherLocal, weatherDTO)

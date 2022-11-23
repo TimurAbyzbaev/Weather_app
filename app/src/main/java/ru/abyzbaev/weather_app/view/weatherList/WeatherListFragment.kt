@@ -10,14 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
+import ru.abyzbaev.weather_app.AppState
 import ru.abyzbaev.weather_app.MainActivity
 import ru.abyzbaev.weather_app.R
 import ru.abyzbaev.weather_app.databinding.FragmentWeatherListBinding
 import ru.abyzbaev.weather_app.domain.Weather
+import ru.abyzbaev.weather_app.utils.showSnackBar
 import ru.abyzbaev.weather_app.view.details.DetailsFragment
 import ru.abyzbaev.weather_app.view.details.OnItemClick
-import ru.abyzbaev.weather_app.viewmodel.AppState
-import java.time.Duration
 
 class WeatherListFragment : Fragment(), OnItemClick {
     companion object {
@@ -54,7 +54,6 @@ class WeatherListFragment : Fragment(), OnItemClick {
                 renderData(t)
             }
         })
-        //viewModel.sentRequest()
 
         binding.weatherListFragmentFab.setOnClickListener {
             isRussian = !isRussian
@@ -73,10 +72,10 @@ class WeatherListFragment : Fragment(), OnItemClick {
         when (appState) {
             is AppState.Error -> {
                 binding.showResult()
-                binding.root.showSnackbar(
+                binding.weatherListRecycleView.showSnackBar(
                     "Ошибка",
-                    Snackbar.LENGTH_INDEFINITE,
-                    "Попробовать снова"
+                    "Попробовать снова",
+                    Snackbar.LENGTH_INDEFINITE
                 ) {
                     if (isRussian) {
                         viewModel.getWeatherListForRussia()
@@ -90,26 +89,16 @@ class WeatherListFragment : Fragment(), OnItemClick {
             AppState.Loading -> {
                 binding.loading()
             }
-            is AppState.SuccessMulti -> {
+
+            is AppState.Success -> {
                 binding.showResult()
                 binding.weatherListRecycleView.adapter =
-                    WeatherListAdapter(appState.weatherList, this)
-            }
-            is AppState.SuccessOne -> {
-                binding.showResult()
+                    WeatherListAdapter(appState.weatherData, this)
 
             }
         }
     }
 
-    private fun View.showSnackbar(
-        string: String,
-        duration: Int,
-        actionString: String,
-        block: (v: View) -> Unit
-    ) {
-        Snackbar.make(this, string, duration).setAction(actionString, block).show()
-    }
 
     fun FragmentWeatherListBinding.loading() {
         this.loadingLayout.visibility = VISIBLE

@@ -17,7 +17,7 @@ data class City(
     val lon: Double
 ) : Parcelable
 
-fun getDefaultCity() = City("Москва", 27.3243523, 47.823434)
+fun getDefaultCity() = City("Error", 0.0, 0.0)
 
 fun getWorldCities(): List<Weather> {
     return listOf(

@@ -7,4 +7,8 @@
     <string name="reload">Reload</string>
     <string name="load_error">Error data loading</string>
     <string name="loading">loading</string>
+    <string name="city_name">City</string>
+    <string name="temp">temp</string>
+    <string name="feels_like">feels_like</string>
+    <string name="lat_lon">lat_lon</string>
 </resources>

@@ -1,11 +1,8 @@
 package ru.abyzbaev.weather_app.utils
 
-import android.os.Handler
-import android.os.Looper
 import com.google.gson.Gson
 import ru.abyzbaev.weather_app.BuildConfig
 import ru.abyzbaev.weather_app.model.dto.WeatherDTO
-import ru.abyzbaev.weather_app.view.details.OnResponse
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection

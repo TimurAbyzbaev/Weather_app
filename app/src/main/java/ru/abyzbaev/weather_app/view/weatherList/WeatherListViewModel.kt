@@ -2,10 +2,8 @@ package ru.abyzbaev.weather_app.view.weatherList
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.abyzbaev.weather_app.AppState
 import ru.abyzbaev.weather_app.model.*
-import ru.abyzbaev.weather_app.viewmodel.AppState
-import java.lang.Math.random
-import kotlin.random.Random
 
 
 class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()) :
@@ -43,7 +41,7 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
                 liveData.postValue(AppState.Error(IllegalStateException("Что то пошло не так...")))
             } else {
                 liveData.postValue(
-                    AppState.SuccessMulti(
+                    AppState.Success(
                         repositoryListWeather.getListWeather(
                             location
                         )

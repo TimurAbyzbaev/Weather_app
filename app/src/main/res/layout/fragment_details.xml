@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/city_name_margin_top"
-            android:text="Москва"
+            android:text="@string/city_name"
             android:textSize="@dimen/city_name_text_size"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cityName"
-            tools:text="lt/ln: 55.75654846, 37.615684352" />
+            tools:text="@string/lat_lon" />
 
         <TextView
             android:id="@+id/temperatureLabel"
@@ -56,7 +56,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/temperatureLabel"
-            tools:text="+15" />
+            tools:text="@string/temp" />
 
         <TextView
             android:id="@+id/feelsLikeLabel"
@@ -78,7 +78,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/feelsLikeLabel"
-            tools:text="+14" />
+            tools:text="@string/feels_like" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

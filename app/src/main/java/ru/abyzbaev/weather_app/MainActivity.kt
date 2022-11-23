@@ -1,8 +1,7 @@
 package ru.abyzbaev.weather_app
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import ru.abyzbaev.weather_app.databinding.ActivityMainBinding
 import ru.abyzbaev.weather_app.view.weatherList.WeatherListFragment
 

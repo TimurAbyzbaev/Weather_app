@@ -9,4 +9,4 @@ data class Fact(
     @SerializedName("temp")
     val temp: Int,
 
-)
+    )

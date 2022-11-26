@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_details.*
 import ru.abyzbaev.weather_app.AppState
 import ru.abyzbaev.weather_app.R
 import ru.abyzbaev.weather_app.databinding.FragmentDetailsBinding
@@ -100,5 +102,8 @@ class DetailsFragment : Fragment() {
             temperatureValue.text = weather.temperature.toString()
             feelsLikeValue.text = weather.feelsLike.toString()
         }
+        Picasso.get()
+            .load("https://www.citypng.com/public/uploads/preview/city-skyline-at-night-silhouette-free-png-11665308740amrxr6qvry.png")
+            .into(header_image)
     }
 }

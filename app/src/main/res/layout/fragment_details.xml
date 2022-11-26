@@ -13,6 +13,14 @@
         tools:layout_editor_absoluteX="79dp"
         tools:layout_editor_absoluteY="42dp">
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/header_image"
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            android:layout_height="@dimen/header_heigth"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
         <TextView
             android:id="@+id/cityName"
             android:layout_width="wrap_content"
@@ -23,7 +31,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/header_image" />
 
         <TextView
             android:id="@+id/cityCoordinates"

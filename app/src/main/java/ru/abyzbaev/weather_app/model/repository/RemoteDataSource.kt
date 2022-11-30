@@ -1,4 +1,4 @@
-package ru.abyzbaev.weather_app.model
+package ru.abyzbaev.weather_app.model.repository
 
 import com.google.gson.GsonBuilder
 import retrofit2.Callback

@@ -5,10 +5,14 @@ import androidx.lifecycle.ViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import ru.abyzbaev.weather_app.App.Companion.getHistoryDao
 import ru.abyzbaev.weather_app.AppState
-import ru.abyzbaev.weather_app.model.DetailsRepositoryImpl
-import ru.abyzbaev.weather_app.model.RemoteDataSource
+import ru.abyzbaev.weather_app.domain.Weather
 import ru.abyzbaev.weather_app.model.dto.WeatherDTO
+import ru.abyzbaev.weather_app.model.repository.DetailsRepositoryImpl
+import ru.abyzbaev.weather_app.model.repository.LocalRepository
+import ru.abyzbaev.weather_app.model.repository.LocalRepositoryImpl
+import ru.abyzbaev.weather_app.model.repository.RemoteDataSource
 import ru.abyzbaev.weather_app.utils.convertDtoToModel
 
 
@@ -20,13 +24,18 @@ class DetailsViewModel(
     private val detailsLiveData: MutableLiveData<AppState> = MutableLiveData(),
     private val detailsRepositoryImpl: DetailsRepositoryImpl = DetailsRepositoryImpl(
         RemoteDataSource()
-    )
+    ),
+    private val historyRepository: LocalRepository = LocalRepositoryImpl(getHistoryDao())
 ) : ViewModel() {
     fun getLiveData() = detailsLiveData
 
     fun getWeatherFromRemoteSource(lat: Double, lon: Double) {
         detailsLiveData.value = AppState.Loading
         detailsRepositoryImpl.getWeatherDetailsFromServer(lat, lon, callback)
+    }
+
+    fun saveCityToDb(weather: Weather) {
+        historyRepository.saveEntity(weather)
     }
 
     private val callback = object : Callback<WeatherDTO> {

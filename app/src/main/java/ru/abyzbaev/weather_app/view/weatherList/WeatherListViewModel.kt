@@ -3,8 +3,7 @@ package ru.abyzbaev.weather_app.view.weatherList
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.abyzbaev.weather_app.AppState
-import ru.abyzbaev.weather_app.model.*
-import kotlin.properties.Delegates
+import ru.abyzbaev.weather_app.model.repository.*
 
 
 class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()) :
@@ -25,11 +24,10 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
         repositoryListWeather = RepositoryLocalImpl()
     }
 
-    fun loadWeatherList(isRussian: Boolean){
-        if(isRussian){
+    fun loadWeatherList(isRussian: Boolean) {
+        if (isRussian) {
             getWeatherListForRussia()
-        }
-        else{
+        } else {
             getWeatherListForWorld()
         }
     }

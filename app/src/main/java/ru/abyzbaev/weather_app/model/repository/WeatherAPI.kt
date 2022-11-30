@@ -1,4 +1,4 @@
-package ru.abyzbaev.weather_app.model
+package ru.abyzbaev.weather_app.model.repository
 
 import retrofit2.Call
 import retrofit2.http.GET

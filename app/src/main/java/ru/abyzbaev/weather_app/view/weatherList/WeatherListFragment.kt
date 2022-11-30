@@ -78,7 +78,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
 
     private fun saveListOfTowns() {
         activity?.let {
-            with(it.getPreferences(Context.MODE_PRIVATE).edit()){
+            with(it.getPreferences(Context.MODE_PRIVATE).edit()) {
                 putBoolean(IS_RUSSIAN_KEY, isRussian)
                 apply()
             }

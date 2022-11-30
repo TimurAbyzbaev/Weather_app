@@ -102,8 +102,13 @@ class DetailsFragment : Fragment() {
             temperatureValue.text = weather.temperature.toString()
             feelsLikeValue.text = weather.feelsLike.toString()
         }
+        saveCity(city, weather)
         Picasso.get()
             .load("https://www.citypng.com/public/uploads/preview/city-skyline-at-night-silhouette-free-png-11665308740amrxr6qvry.png")
             .into(header_image)
+    }
+
+    private fun saveCity(city: City, weather: Weather) {
+        viewModel.saveCityToDb(Weather(city, weather.temperature, weather.feelsLike))
     }
 }

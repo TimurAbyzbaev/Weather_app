@@ -1,5 +1,6 @@
 package ru.abyzbaev.weather_app.view.weatherList
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,12 +20,14 @@ import ru.abyzbaev.weather_app.utils.showSnackBar
 import ru.abyzbaev.weather_app.view.details.DetailsFragment
 import ru.abyzbaev.weather_app.view.details.OnItemClick
 
+private const val IS_RUSSIAN_KEY = "LIST_OF_RUSSIAN_KEY"
+
 class WeatherListFragment : Fragment(), OnItemClick {
     companion object {
         fun newInstance() = WeatherListFragment()
     }
 
-    var isRussian = true
+    private var isRussian = true
 
     private var _binding: FragmentWeatherListBinding? = null
     private val binding: FragmentWeatherListBinding
@@ -38,6 +41,9 @@ class WeatherListFragment : Fragment(), OnItemClick {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWeatherListBinding.inflate(inflater)
+        activity?.let {
+            isRussian = it.getPreferences(Context.MODE_PRIVATE).getBoolean(IS_RUSSIAN_KEY, true)
+        }
         return binding.root
     }
 
@@ -64,8 +70,19 @@ class WeatherListFragment : Fragment(), OnItemClick {
                 viewModel.getWeatherListForWorld()
                 binding.weatherListFragmentFab.setImageResource(R.drawable.world_icon)
             }
+            saveListOfTowns()
         }
-        viewModel.getWeatherListForRussia()
+        viewModel.loadWeatherList(isRussian)
+        //viewModel.getWeatherListForRussia()
+    }
+
+    private fun saveListOfTowns() {
+        activity?.let {
+            with(it.getPreferences(Context.MODE_PRIVATE).edit()){
+                putBoolean(IS_RUSSIAN_KEY, isRussian)
+                apply()
+            }
+        }
     }
 
     private fun renderData(appState: AppState) {

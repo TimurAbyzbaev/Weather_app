@@ -11,4 +11,6 @@
     <string name="temp">temp</string>
     <string name="feels_like">feels_like</string>
     <string name="lat_lon">lat_lon</string>
+    <string name="menu_title_history">History</string>
+    <string name="feel">Feel</string>
 </resources>

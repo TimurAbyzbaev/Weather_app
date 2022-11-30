@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.abyzbaev.weather_app.AppState
 import ru.abyzbaev.weather_app.model.*
+import kotlin.properties.Delegates
 
 
 class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()) :
@@ -22,6 +23,15 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
             RepositoryLocalImpl()
         }
         repositoryListWeather = RepositoryLocalImpl()
+    }
+
+    fun loadWeatherList(isRussian: Boolean){
+        if(isRussian){
+            getWeatherListForRussia()
+        }
+        else{
+            getWeatherListForWorld()
+        }
     }
 
     fun getWeatherListForRussia() {
@@ -55,8 +65,5 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
         return false
     }
 
-    override fun onCleared() { //поиграться
-        super.onCleared()
 
-    }
 }

@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import ru.abyzbaev.weather_app.databinding.ActivityMainBinding
+import ru.abyzbaev.weather_app.view.contacts.ContactsFragment
 import ru.abyzbaev.weather_app.view.history.HistoryFragment
 import ru.abyzbaev.weather_app.view.weatherList.WeatherListFragment
 
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             R.id.menu_contacts -> {
                 supportFragmentManager.apply {
                     beginTransaction()
-                        .add(R.id.container, ContactFragment.newInstance())
+                        .add(R.id.container, ContactsFragment.newInstance())
                         .addToBackStack("")
                         .commitAllowingStateLoss()
                 }

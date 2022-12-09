@@ -13,4 +13,5 @@
     <string name="lat_lon">lat_lon</string>
     <string name="menu_title_history">History</string>
     <string name="feel">Feel</string>
+    <string name="menu_title_contacts">Контакты</string>
 </resources>

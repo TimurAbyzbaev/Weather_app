@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 const val ID = "id"
 const val CITY = "city"
 const val TEMPERATURE = "temperature"
+const val FEELS_LIKE = "feelsLike"
 
 @Entity
 class HistoryEntity(

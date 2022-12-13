@@ -71,7 +71,6 @@ class ContactsFragment : Fragment() {
                 }
             }
         }
-
     }
 
 

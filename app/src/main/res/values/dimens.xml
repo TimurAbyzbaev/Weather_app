@@ -6,4 +6,5 @@
     <dimen name="feels_like_text_size">30sp</dimen>
     <dimen name="city_name_text_size">35sp</dimen>
     <dimen name="header_heigth">100dp</dimen>
+    <dimen name="default_margin">5dp</dimen>
 </resources>

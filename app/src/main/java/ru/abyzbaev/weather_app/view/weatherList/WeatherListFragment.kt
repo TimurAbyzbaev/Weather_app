@@ -1,35 +1,40 @@
 package ru.abyzbaev.weather_app.view.weatherList
 
-import android.content.Context
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.snackbar.Snackbar
-import ru.abyzbaev.weather_app.AppState
-import ru.abyzbaev.weather_app.MainActivity
-import ru.abyzbaev.weather_app.R
-import ru.abyzbaev.weather_app.databinding.FragmentWeatherListBinding
-import ru.abyzbaev.weather_app.domain.Weather
-import ru.abyzbaev.weather_app.utils.showSnackBar
-import ru.abyzbaev.weather_app.view.details.DetailsFragment
-import ru.abyzbaev.weather_app.view.details.OnItemClick
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.os.Bundle
+import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
+import ru.abyzbaev.weather_app.AppState
+import ru.abyzbaev.weather_app.R
+import ru.abyzbaev.weather_app.databinding.FragmentWeatherListBinding
 import ru.abyzbaev.weather_app.domain.City
+import ru.abyzbaev.weather_app.domain.Weather
+import ru.abyzbaev.weather_app.utils.showSnackBar
+import ru.abyzbaev.weather_app.view.details.DetailsFragment
+import ru.abyzbaev.weather_app.view.details.OnItemClick
 import java.io.IOException
+
 
 private const val REFRESH_PERIOD = 30000L
 private const val MINIMAL_DISTANCE = 100f
@@ -74,7 +79,6 @@ class WeatherListFragment : Fragment(), OnItemClick {
                 renderData(t)
             }
         })
-
         binding.weatherListFragmentFab.setOnClickListener {
             isRussian = !isRussian
             if (isRussian) {
@@ -90,6 +94,64 @@ class WeatherListFragment : Fragment(), OnItemClick {
         binding.weatherListFragmentFabLocation.setOnClickListener {
             checkPermission()
         }
+        binding.searchButton.setOnClickListener{
+            getWeatherByName()
+        }
+        binding.cityNameInput.setOnKeyListener(View.OnKeyListener {_, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
+                getWeatherByName()
+                return@OnKeyListener true
+            }
+            false
+        })
+    }
+
+
+    private fun keyboardHide(activity: Activity, view: View){
+        val inputMethodManager =
+            activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        inputMethodManager.hideSoftInputFromWindow(
+            activity.getCurrentFocus()?.getWindowToken(),0
+        )
+
+        view.post(Runnable { view.clearFocus() })
+    }
+
+
+
+    private fun getWeatherByName() {
+        val cityName = binding.cityNameInput.text.toString()
+        keyboardHide(requireActivity(), requireView())
+
+        val geoCoder = Geocoder(context)
+        Thread {
+            try {
+                val location = geoCoder.getFromLocationName(
+                    cityName,
+                    1
+                )
+                if (location.size == 0){
+                    binding.weatherListFragmentFab.post {
+                        Toast.makeText(context, "Город не найден, попробуйте снова", Toast.LENGTH_LONG).show()
+                        binding.cityNameInput.text?.clear()
+                    }
+                }
+                else{
+                    openDetailFragment(
+                        Weather(
+                            City(
+                                location[0].featureName,
+                                location[0].latitude,
+                                location[0].longitude
+                            )
+                        )
+                    )
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }.start()
     }
 
     private fun checkPermission() {

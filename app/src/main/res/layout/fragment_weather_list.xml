@@ -18,6 +18,19 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/weatherListFragmentFabLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_15_dp"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        app:tint ="@null"
+        android:src="@drawable/ic_baseline_my_location_24"
+        app:layout_constraintBottom_toTopOf="@id/weatherListFragmentFab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="35dp"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/weatherListFragmentFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

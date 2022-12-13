@@ -90,6 +90,33 @@ class WeatherListFragment : Fragment(), OnItemClick {
         binding.weatherListFragmentFabLocation.setOnClickListener {
             checkPermission()
         }
+        binding.searchButton.setOnClickListener{
+            val cityName = binding.cityNameInput.text.toString()
+            getWeatherByName(cityName)
+        }
+    }
+
+    private fun getWeatherByName(cityName: String) {
+        val geoCoder = Geocoder(context)
+        Thread {
+            try {
+                val location = geoCoder.getFromLocationName(
+                    cityName,
+                    1
+                )
+                openDetailFragment(
+                    Weather(
+                        City(
+                            location[0].featureName,
+                            location[0].latitude,
+                            location[0].longitude
+                        )
+                    )
+                )
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }.start()
     }
 
     private fun checkPermission() {

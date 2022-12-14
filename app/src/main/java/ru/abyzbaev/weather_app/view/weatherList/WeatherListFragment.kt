@@ -124,29 +124,30 @@ class WeatherListFragment : Fragment(), OnItemClick {
         val cityName = binding.cityNameInput.text.toString()
         keyboardHide(requireActivity(), requireView())
 
-        val geoCoder = Geocoder(context)
+        val geoCoder = context?.let { Geocoder(it) }
         Thread {
             try {
-                val location = geoCoder.getFromLocationName(
+                val location = geoCoder?.getFromLocationName(
                     cityName,
                     1
                 )
-                if (location.size == 0){
-                    binding.weatherListFragmentFab.post {
-                        Toast.makeText(context, "Город не найден, попробуйте снова", Toast.LENGTH_LONG).show()
-                        binding.cityNameInput.text?.clear()
-                    }
-                }
-                else{
-                    openDetailFragment(
-                        Weather(
-                            City(
-                                location[0].featureName,
-                                location[0].latitude,
-                                location[0].longitude
+                if (location != null) {
+                    if (location.size == 0){
+                        binding.weatherListFragmentFab.post {
+                            Toast.makeText(context, "Город не найден, попробуйте снова", Toast.LENGTH_LONG).show()
+                            binding.cityNameInput.text?.clear()
+                        }
+                    } else{
+                        openDetailFragment(
+                            Weather(
+                                City(
+                                    location[0].featureName,
+                                    location[0].latitude,
+                                    location[0].longitude
+                                )
                             )
                         )
-                    )
+                    }
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -271,7 +272,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
                     1
                 )
                 binding.weatherListFragmentFab.post {
-                    showAddressDialog(addresses[0].getAddressLine(0), location)
+                    addresses?.get(0)?.let { showAddressDialog(it.getAddressLine(0), location) }
                 }
             } catch (e: IOException) {
                 e.printStackTrace()

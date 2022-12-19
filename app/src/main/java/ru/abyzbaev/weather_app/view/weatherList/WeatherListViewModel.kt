@@ -9,19 +9,10 @@ import ru.abyzbaev.weather_app.model.repository.*
 class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()) :
     ViewModel() {
     private lateinit var repositoryListWeather: RepositoryListWeather
-    private lateinit var repositorySingleWeather: RepositorySingleWeather
-    fun getLiveData(): MutableLiveData<AppState> {
-        choiceRepository()
-        return liveData
-    }
 
-    private fun choiceRepository() {
-        repositorySingleWeather = if (isConnection()) {
-            RepositoryRemoteImpl()
-        } else {
-            RepositoryLocalImpl()
-        }
+    fun getLiveData(): MutableLiveData<AppState> {
         repositoryListWeather = RepositoryLocalImpl()
+        return liveData
     }
 
     fun loadWeatherList(isRussian: Boolean) {
@@ -44,7 +35,6 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
         liveData.value = AppState.Loading// пошла загрузка
         Thread {
             Thread.sleep(30L)
-            //liveData.postValue(AppState.SuccessMulti(repositoryListWeather.getListWeather(location)))
             if ((0..100).random() == 2) {
                 liveData.postValue(AppState.Error(IllegalStateException("Что то пошло не так...")))
             } else {
@@ -58,10 +48,4 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
             }
         }.start()
     }
-
-    private fun isConnection(): Boolean {
-        return false
-    }
-
-
 }

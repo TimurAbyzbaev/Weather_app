@@ -8,14 +8,15 @@ plugins {
 
 android {
     compileSdk 33
-    buildFeatures {
-        viewBinding = true
-    }
+
     buildTypes.each {
         Properties properties = new Properties()
         properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
         def apiKey = properties.getProperty("yandex_weather_api_key", "")
         it.buildConfigField "String", "WEATHER_API_KEY", apiKey
+        buildFeatures {
+            viewBinding = true
+        }
     }
 
     defaultConfig {
@@ -40,6 +41,17 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    flavorDimensions 'version'
+    productFlavors {
+        free {
+            dimension 'version'
+            versionNameSuffix '.free'
+        }
+        pro {
+            dimension 'version'
+            versionNameSuffix '.pro'
+        }
     }
 }
 
